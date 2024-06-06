@@ -1,10 +1,13 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: alertmanager
   namespace: monitoring
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: alertmanager
   template:
     metadata:
       labels:
@@ -49,4 +52,4 @@ spec:
   ports:
   - port: 9093
     targetPort: 9093
-    nodePort: 8081
+    nodePort: 30081
