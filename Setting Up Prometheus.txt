@@ -1,0 +1,52 @@
+# Chapter 4.1 - 'Setting Up Prometheus'
+# URL: https://learn.acloud.guru/course/97037e05-88ed-41a1-92ee-f5a8080318c2/learn/2efa7efd-5c5d-40c4-8711-e70cd3f83985/cb8c2a1d-7254-40b6-9bc4-f072d1d856ad/watch
+
+# Run the following commands from your 'Kubernetes Master' node:
+
+# Clone the GitHub repository:
+
+git clone https://github.com/ACloudGuru-Resources/content-kubernetes-prometheus-env.git
+
+# Access the 'prometheus' directory:
+
+cd content-kubernetes-prometheus-env/prometheus/
+
+# Checkout the 'alerting-labs' branch:
+
+git checkout alerting-labs
+
+# Create the 'monitoring' namespace:
+
+kubectl apply -f namespaces.yml
+
+# Replace the '<KUBERNETES_IP>' placeholders by the private IP addresses from your 'Kubernetes Master' and 'Kubernetes Node' cloud playground servers: 
+
+vim prometheus-config-map.yml
+
+# Create the 'prometheus-server-conf' ConfigMap:
+
+kubectl apply -f prometheus-config-map.yml
+
+# Create the 'prometheus-deployment' Deployment:
+
+kubectl apply -f prometheus-deployment.yml
+
+# Create the 'prometheus-service' Service: 
+
+kubectl apply -f prometheus-service.yml
+
+# Check the Prometheus Service:
+
+kubectl get services -n monitoring
+
+# From your browser, access the Prometheus console using the public IP address of your Kubernetes Master node + port 30080:
+
+<KUBERNETES_MASTER_PUBLIC_IP>:30080
+
+# Create the 'prometheus' ClusterRole:
+
+kubectl apply -f clusterRole.yml
+
+# Create the 'kube-state-metrics' Service and Deployment:
+
+kubectl apply -f kube-state-metrics.yml
